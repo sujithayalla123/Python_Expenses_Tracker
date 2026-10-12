@@ -39,17 +39,17 @@ def total_expense(expenses):
         total+=item["amount"]
     print("Total:",total)
 def delete_expense(expenses):
+    view_expenses(expenses)
     try:
-        delete=int(input("enter a number to delete expense:"))
+        index = int(input("Enter expense number to delete: ")) - 1
+        if 0 <= index < len(expenses):
+            expenses.pop(index)
+            print("Expense deleted successfully!")
+        else:
+            print("Invalid expense number.")
     except ValueError:
-        print("enter a number only")
-        return
-    if delete >= 1 and delete <= len(expenses):
-        index=delete-1
-        expenses.pop(index)
-        print("Deleted Successfully")
-    else:
-        print("invalid  expense number")
+        print("Please enter a valid number.")  
+    save_expenses(expenses)
 import json
 def save_expenses(expenses):
     with open("expenses.json", "w") as file:
